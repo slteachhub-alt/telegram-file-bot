@@ -9,7 +9,7 @@ CHANNEL_ID = -1003762194941
 app = Client("filebot", api_id=API_ID, api_hash=API_HASH, bot_token=BOT_TOKEN)
 
 # SAVE FILE
-@app.on_message(filters.private & (filters.photo | filters.document | filters.video | filters.audio))
+@app.on_message(filters.private & filters.incoming & (filters.photo | filters.document | filters.video | filters.audio))
 async def save_file(client, message: Message):
     copied = await message.copy(CHANNEL_ID)
     link = f"https://t.me/{(await client.get_me()).username}?start={copied.id}"
@@ -29,3 +29,4 @@ async def send_file(client, message: Message):
         await message.reply_text("Send me a file to store permanently.")
 
 app.run()
+
